@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Выход - Flower Delivery{% endblock %}
+
+{% block content %}
+    <h1>Вы уверены, что хотите выйти?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Выйти</button>
+    </form>
+    <p><a href="{% url 'home' %}">Отмена</a></p>
+{% endblock %}
