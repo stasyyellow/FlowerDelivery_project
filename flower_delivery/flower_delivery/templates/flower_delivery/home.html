@@ -4,5 +4,13 @@
 
 {% block content %}
 <h1>Добро пожаловать в Flower Delivery!</h1>
-<p>Закажите цветы быстро и удобно.</p>
+<p>Популярные товары:</p>
+<ul>
+    {% for product in products %}
+        <li>
+            <strong>{{ product.name }}</strong>: {{ product.price }} руб.
+        </li>
+    {% endfor %}
+</ul>
+<p><a href="{% url 'product_list' %}">Перейти в каталог</a></p>
 {% endblock %}

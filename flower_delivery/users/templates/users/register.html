@@ -3,11 +3,11 @@
 {% block title %}Регистрация - Flower Delivery{% endblock %}
 
 {% block content %}
-    <h1>Регистрация</h1>
-    <form method="post">
-        {% csrf_token %} <!--what is this? -->
-        {{ form.as_p }} <!-- Отображение формы в виде абзацев -->
-        <button type="submit">Зарегистрироваться</button>
-    </form>
-    <p>Уже зарегистрированы? <a href="{% url 'login' %}">Войти</a></p>
+<h1>Регистрация</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Зарегистрироваться</button>
+</form>
+<p>Уже зарегистрированы? <a href="{% url 'users:login' %}">Войти</a></p>
 {% endblock %}

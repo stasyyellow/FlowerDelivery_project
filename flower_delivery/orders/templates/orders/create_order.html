@@ -1,6 +1,12 @@
-from django.urls import path
-from . import views
+{% extends 'flower_delivery/base.html' %}
 
-urlpatterns = [
-    path('create/', views.create_order, name='create_order'),
-]
+{% block title %}Создать заказ{% endblock %}
+
+{% block content %}
+<h1>Создание заказа</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Оформить заказ</button>
+</form>
+{% endblock %}

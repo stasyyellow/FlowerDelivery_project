@@ -1,6 +1,23 @@
+{% extends 'flower_delivery/base.html' %}
+
+{% block title %}Каталог{% endblock %}
+
+{% block content %}
 <h1>Каталог товаров</h1>
 <ul>
     {% for product in products %}
-        <li>{{ product.name }} - {{ product.price }} руб.</li>
+        <li>
+            <strong>{{ product.name }}</strong>: {{ product.price }} руб.
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" width="150">
+            {% endif %}
+            {% if product.description %}
+                <p>{{ product.description }}</p>
+            {% endif %}
+            <!-- Ссылка на оформление заказа -->
+            <a href="{% url 'orders:create_order_with_product' product.id %}">Оформить заказ</a>
+        </li>
     {% endfor %}
 </ul>
+{% endblock %}
+
