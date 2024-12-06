@@ -1,12 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'flower_delivery/base.html' %}
 
 {% block title %}Выход - Flower Delivery{% endblock %}
 
 {% block content %}
+<div class="text-center mt-5">
     <h1>Вы уверены, что хотите выйти?</h1>
-    <form method="post">
+    <form method="post" class="mt-4">
         {% csrf_token %}
-        <button type="submit">Выйти</button>
+        <button type="submit" class="btn btn-danger">Выйти</button>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Отмена</a>
     </form>
-    <p><a href="{% url 'home' %}">Отмена</a></p>
+</div>
 {% endblock %}

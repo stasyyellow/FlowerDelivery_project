@@ -3,16 +3,6 @@ from .models import Order
 from catalog.models import Product
 
 class OrderForm(forms.ModelForm):
-    product = forms.ModelChoiceField(
-        queryset=Product.objects.all(),
-        label="Товар",
-        empty_label="Выберите товар",
-    )
-    quantity = forms.IntegerField(
-        min_value=1,
-        label="Количество",
-        widget=forms.NumberInput(attrs={'placeholder': 'Введите количество'}),
-    )
     delivery_address = forms.CharField(
         widget=forms.Textarea(attrs={'rows': 3, 'placeholder': 'Введите адрес доставки'}),
         label="Адрес доставки"
@@ -22,7 +12,18 @@ class OrderForm(forms.ModelForm):
         widget=forms.Textarea(attrs={'rows': 2, 'placeholder': 'Дополнительные комментарии'}),
         label="Комментарий",
     )
+    add_card = forms.BooleanField(
+        required=False,
+        label="Добавить открытку",
+        widget=forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+    )
+    card_text = forms.CharField(
+        required=False,
+        label="Текст открытки",
+        widget=forms.Textarea(attrs={'rows': 3, 'placeholder': 'Введите текст открытки...'}),
+    )
 
     class Meta:
         model = Order
-        fields = ['product', 'quantity', 'delivery_address', 'comment']  # Поля для заполнения
+        fields = ['delivery_address', 'comment', 'add_card', 'card_text']
+

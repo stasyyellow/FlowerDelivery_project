@@ -1,0 +1,46 @@
+{% extends 'flower_delivery/base.html' %}
+
+{% block title %}Корзина{% endblock %}
+
+{% block content %}
+<h1>Корзина</h1>
+
+{% if items %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Товар</th>
+                <th>Количество</th>
+                <th>Цена за единицу</th>
+                <th>Общая цена</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>
+                    <div class="d-flex align-items-center">
+                        <a href="{% url 'cart:decrease_quantity' item.id %}" class="btn btn-sm btn-outline-secondary">-</a>
+                        <span class="mx-2">{{ item.quantity }}</span>
+                        <a href="{% url 'cart:add_to_cart' item.product.id %}" class="btn btn-sm btn-outline-secondary">+</a>
+                    </div>
+                </td>
+                <td>{{ item.product.price }} руб.</td>
+                <td>{{ item.get_total_price }} руб.</td>
+                <td>
+                    <a href="{% url 'cart:remove_from_cart' item.id %}" class="btn btn-sm btn-danger">Удалить</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>Итого: {{ total }} руб.</h3>
+    <a href="{% url 'cart:checkout' %}" class="btn btn-success">Оформить заказ</a>
+    <a href="{% url 'product_list' %}" class="btn btn-secondary">Продолжить покупки</a>
+{% else %}
+    <p>Ваша корзина пуста.</p>
+    <a href="{% url 'product_list' %}" class="btn btn-primary">Перейти к покупкам</a>
+{% endif %}
+{% endblock %}

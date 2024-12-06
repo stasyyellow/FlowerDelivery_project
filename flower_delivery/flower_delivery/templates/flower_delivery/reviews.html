@@ -1,0 +1,45 @@
+{% extends 'flower_delivery/base.html' %}
+
+{% block title %}Отзывы - Flower Delivery{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Заголовок -->
+    <h1 class="text-center mb-4">Отзывы наших клиентов</h1>
+    <p class="text-muted text-center">Поделитесь своими впечатлениями о нашей службе доставки цветов!</p>
+
+    <!-- Форма для добавления нового отзыва -->
+    {% if user.is_authenticated %}
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="reviewText" class="form-label">Ваш отзыв:</label>
+                <textarea class="form-control" id="reviewText" name="review" rows="3" placeholder="Напишите ваш отзыв..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Оставить отзыв</button>
+        </form>
+        <hr>
+    {% else %}
+        <p class="text-center mt-4">
+            <a href="{% url 'users:login' %}">Войдите</a>, чтобы оставить отзыв.
+        </p>
+    {% endif %}
+
+    <!-- Список отзывов -->
+    <h3 class="mt-4">Последние отзывы</h3>
+    <ul class="list-group">
+        {% for review in reviews %}
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between align-items-center">
+                    <strong>Пользователь:</strong> <em>{{ review.user.username }}</em>
+                    <small class="text-muted">{{ review.created_at|date:"d.m.Y H:i" }}</small>
+                </div>
+                <p class="mt-2 mb-0">{{ review.text }}</p>
+            </li>
+        {% empty %}
+            <li class="list-group-item text-center">Отзывов пока нет. Будьте первым!</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'cart', #корзина
     'catalog',
     'flower_delivery', #?
     'orders',
@@ -124,9 +126,29 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+
+# Настройки для статических файлов
+STATIC_URL = '/static/'
+
+# В режиме разработки:
+# STATICFILES_DIRS указывает Django, где искать статические файлы
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Путь к вашей папке "static"
+]
+
+# В режиме продакшена:
+# STATIC_ROOT используется для команды collectstatic
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Папка, куда collectstatic соберет файлы
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+#         'LOCATION': '/path/to/your/cache/directory/',
+#     }
+# } #???

@@ -1,0 +1,106 @@
+/* Основные настройки */
+html, body {
+    font-family: 'Arial', sans-serif;
+    background-color: #fbdef4; /* Нежно-розовый фон для всех страниц */
+    color: #321608; /* Цвет текста */
+    height: 100%; /* Устанавливаем высоту на 100% для flex-контейнера */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Основное содержимое */
+main {
+    flex: 1; /* Занимает оставшееся пространство */
+    padding-bottom: 20px; /* Отступ для визуального удобства */
+}
+
+/* Шапка */
+.navbar {
+    background-color: #c5e1b3; /* Светло-зелёный цвет для шапки */
+    border-bottom: 1px solid #a5d37e; /* Более тёмный оттенок зелёного для линии */
+}
+
+.navbar .nav-link {
+    color: #321608; /* Цвет текста ссылок */
+}
+
+.navbar .nav-link.active {
+    color: #321608; /* Цвет активной ссылки */
+    font-weight: bold;
+}
+
+.navbar-brand img {
+    max-height: 50px;
+}
+
+/* Кнопки */
+.btn-primary {
+    background-color: #c5e1b3; /* Светло-зелёный цвет для кнопок */
+    border-color: #a5d37e;
+    color: #321608; /* Цвет текста кнопок */
+}
+
+.btn-primary:hover {
+    background-color: #a5d37e; /* Более насыщенный зелёный при наведении */
+    border-color: #a5d37e;
+}
+
+.btn-secondary {
+    background-color: #fbdef4; /* Нежно-розовый для второстепенных кнопок */
+    border-color: #fbdef4;
+    color: #321608; /* Цвет текста */
+}
+
+.btn-secondary:hover {
+    background-color: #f5d3f5; /* Более насыщенный розовый при наведении */
+    border-color: #f5d3f5;
+}
+
+/* Подвал */
+footer {
+    background-color: #c5e1b3; /* Светло-зелёный фон для подвала */
+    color: #321608; /* Цвет текста подвала */
+    flex-shrink: 0; /* Закрепляем подвал внизу страницы */
+    text-align: center;
+    padding: 20px 0;
+}
+
+footer a {
+    color: #321608; /* Цвет ссылок в подвале */
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Стили заголовков */
+h1, h2, h3, h4, h5, h6 {
+    color: #321608; /* Цвет заголовков */
+}
+
+/* Таблицы */
+.table {
+    background-color: #ffffff; /* Белый фон для таблиц */
+    color: #321608;
+}
+
+.table th, .table td {
+    border-color: #a5d37e; /* Лёгкий оттенок зелёного для границ */
+}
+
+/* Корзина (иконка внизу) */
+.btn-cart {
+    background-color: #fbdef4; /* Цвет кнопки корзины соответствует цвету фона */
+    border-color: #fbdef4;
+    color: #321608;
+}
+
+.btn-cart:hover {
+    background-color: #f5d3f5; /* Более насыщенный розовый при наведении */
+    color: #ffffff;
+}
+
+
+/*#336118 темно зеленый*/

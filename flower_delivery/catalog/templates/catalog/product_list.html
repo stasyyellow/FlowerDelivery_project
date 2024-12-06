@@ -4,20 +4,28 @@
 
 {% block content %}
 <h1>Каталог товаров</h1>
-<ul>
+<div class="row">
     {% for product in products %}
-        <li>
-            <strong>{{ product.name }}</strong>: {{ product.price }} руб.
-            {% if product.image %}
-                <img src="{{ product.image.url }}" alt="{{ product.name }}" width="150">
-            {% endif %}
-            {% if product.description %}
-                <p>{{ product.description }}</p>
-            {% endif %}
-            <!-- Ссылка на оформление заказа -->
-            <a href="{% url 'orders:create_order_with_product' product.id %}">Оформить заказ</a>
-        </li>
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                {% else %}
+                    <img src="/static/images/default_product.png" class="card-img-top" alt="Изображение отсутствует">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description }}</p>
+                    <p class="card-text"><strong>{{ product.price }} руб.</strong></p>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'cart:add_to_cart' product.id %}" class="btn btn-primary">Добавить в корзину</a>
+                    {% else %}
+                        <a href="{% url 'users:login' %}" class="btn btn-secondary">Войдите, чтобы добавить в корзину</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     {% endfor %}
-</ul>
+</div>
 {% endblock %}
 
