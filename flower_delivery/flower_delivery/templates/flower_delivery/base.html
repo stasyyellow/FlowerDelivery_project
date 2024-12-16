@@ -12,33 +12,38 @@
     {% block extra_styles %}{% endblock %}
 </head>
 <body>
-    <!-- Шапка -->
-    <nav class="navbar navbar-expand-lg shadow-sm">
-        <div class="container">
-            <!-- Левая часть: ссылки -->
-            <div class="d-flex">
-                <a class="nav-link {% if request.path == '/contacts/' %}active{% endif %}" href="{% url 'contacts' %}">Контакты</a>
-                <a class="nav-link {% if request.path == '/about/' %}active{% endif %}" href="{% url 'about' %}">О нас</a>
-                <a class="nav-link {% if request.path == '/reviews/' %}active{% endif %}" href="{% url 'reviews' %}">Отзывы</a>
-            </div>
-
-            <!-- Центр: логотип -->
-            <a class="navbar-brand mx-auto" href="{% url 'home' %}">
-                <img src="{% static 'flower_delivery/img/logo.png' %}" alt="Flower Delivery" style="height: 40px;">
-            </a>
-
-            <!-- Правая часть: ссылки -->
-            <div class="d-flex">
-                <a class="nav-link {% if request.path == '/catalog/' %}active{% endif %}" href="{% url 'product_list' %}">Каталог</a>
-                {% if user.is_authenticated %}
-                    <a class="nav-link" href="{% url 'users:logout' %}">Выйти</a>
-                {% else %}
-                    <a class="nav-link {% if request.path == '/users/login/' %}active{% endif %}" href="{% url 'users:login' %}">Войти</a>
-                    <a class="nav-link {% if request.path == '/users/register/' %}active{% endif %}" href="{% url 'users:register' %}">Регистрация</a>
-                {% endif %}
-            </div>
+<!-- Шапка -->
+<nav class="navbar navbar-expand-lg shadow-sm" style="background-color: #c5e1b3;">
+    <div class="container">
+        <!-- Левая часть: ссылки -->
+        <div class="d-flex">
+            <a class="nav-link text-dark {% if request.path == '/contacts/' %}active{% endif %}" href="{% url 'contacts' %}">Контакты</a>
+            <a class="nav-link text-dark {% if request.path == '/about/' %}active{% endif %}" href="{% url 'about' %}">О нас</a>
+            <a class="nav-link text-dark {% if request.path == '/reviews/' %}active{% endif %}" href="{% url 'reviews' %}">Отзывы</a>
         </div>
-    </nav>
+
+        <!-- Центр: логотип с текстом -->
+        <div class="navbar-brand mx-auto d-flex align-items-center justify-content-center">
+            <!-- Логотип и текст -->
+            <a href="{% url 'home' %}" class="d-flex align-items-center text-dark text-decoration-none">
+                <span class="fw-bold me-2">Flower</span>
+                <img src="{% static 'flower_delivery/img/logo.jpg' %}" alt="Flower Delivery" style="height: 40px;">
+                <span class="fw-bold ms-2">Delivery</span>
+            </a>
+        </div>
+
+        <!-- Правая часть: ссылки -->
+        <div class="d-flex">
+            <a class="nav-link text-dark {% if request.path == '/catalog/' %}active{% endif %}" href="{% url 'catalog:product_list' %}">Каталог</a>
+            {% if user.is_authenticated %}
+                <a class="nav-link text-dark" href="{% url 'users:logout' %}">Выйти</a>
+            {% else %}
+                <a class="nav-link text-dark {% if request.path == '/users/login/' %}active{% endif %}" href="{% url 'users:login' %}">Войти</a>
+                <a class="nav-link text-dark {% if request.path == '/users/register/' %}active{% endif %}" href="{% url 'users:register' %}">Регистрация</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
 
     <!-- Сообщения -->
     <div class="container mt-4">
@@ -58,37 +63,42 @@
     </main>
 
     <!-- Корзина в правом нижнем углу -->
-    <a href="{% url 'cart:cart_view' %}" class="btn btn-primary rounded-circle shadow-lg"
+    <a href="{% url 'cart:cart_view' %}" class="btn btn-primary rounded-circle shadow-lg btn-cart"
        style="position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
         🛒
     </a>
 
-    <!-- Подвал -->
-    <footer>
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-md-4">
-                    <h6>Контакты</h6>
-                    <p>Email: info@flowerdelivery.ru</p>
-                    <p>Телефон: +7 (999) 123-45-67</p>
-                </div>
-                <div class="col-md-4">
-                    <h6>Часы работы</h6>
-                    <p>Понедельник — Пятница: 9:00 — 18:00</p>
-                    <p>Суббота: 10:00 — 16:00</p>
-                </div>
-                <div class="col-md-4">
-                    <h6>Ссылки</h6>
-                    <a href="{% url 'contacts' %}" class="text-decoration-none">Контакты</a> |
-                    <a href="{% url 'about' %}" class="text-decoration-none">О нас</a> |
-                    <a href="{% url 'reviews' %}" class="text-decoration-none">Отзывы</a>
-                </div>
+<!-- Подвал -->
+<footer class="mt-auto" style="background-color: #c5e1b3; color: #321608;">
+    <div class="container py-4">
+        <div class="footer-container">
+            <!-- Блок с контактами -->
+            <div class="footer-column">
+                <h6>Контакты</h6>
+                <p>Email: info@flowerdelivery.ru</p>
+                <p>Телефон: +7 (999) 123-45-67</p>
             </div>
-            <div class="mt-3 text-center">
-                <p>© 2024 Flower Delivery. Все права защищены.</p>
+            <!-- Блок с часами работы -->
+            <div class="footer-column">
+                <h6>Часы работы</h6>
+                <p>Понедельник — Воскресенье: 9:00 — 20:00</p>
+            </div>
+            <!-- Блок со ссылками -->
+            <div class="footer-column">
+                <h6>Ссылки</h6>
+                <p>
+                    <a href="{% url 'contacts' %}" class="text-decoration-none text-dark">Контакты</a> |
+                    <a href="{% url 'about' %}" class="text-decoration-none text-dark">О нас</a> |
+                    <a href="{% url 'reviews' %}" class="text-decoration-none text-dark">Отзывы</a>
+                </p>
             </div>
         </div>
-    </footer>
+        <!-- Нижняя часть с авторскими правами -->
+        <div class="mt-3">
+            <p>© 2024 Flower Delivery. Все права защищены.</p>
+        </div>
+    </div>
+</footer>
 
     <!-- Подключение JS Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>

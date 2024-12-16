@@ -34,7 +34,7 @@ def add_to_cart(request, product_id):
         return redirect('cart:cart_view')  # Возврат в корзину
 
     # Если запрос из каталога или другой страницы
-    return redirect('product_list')
+    return redirect('catalog:product_list')  # Указываем пространство имён
 
 @login_required
 def decrease_quantity(request, item_id):
@@ -67,10 +67,7 @@ def checkout(request):
         # Здесь должна быть логика создания заказа (заполнить позже)
         cart.items.all().delete()
         messages.success(request, "Ваш заказ успешно оформлен!")
-        return redirect('product_list')
+        return redirect('catalog:product_list')  # Указываем пространство имён
 
     return render(request, 'cart/checkout.html', {'items': items})
-
-
-
 

@@ -45,8 +45,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+# Настройки для медиафайлов (загружаемых файлов)
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -130,11 +132,8 @@ USE_TZ = True
 # Настройки для статических файлов
 STATIC_URL = '/static/'
 
-# В режиме разработки:
-# STATICFILES_DIRS указывает Django, где искать статические файлы
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Путь к вашей папке "static"
-]
+# Удалите `STATICFILES_DIRS`, если ваша структура не требует дополнительных путей
+STATICFILES_DIRS = []
 
 # В режиме продакшена:
 # STATIC_ROOT используется для команды collectstatic

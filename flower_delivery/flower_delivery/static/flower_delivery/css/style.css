@@ -15,23 +15,28 @@ main {
     padding-bottom: 20px; /* Отступ для визуального удобства */
 }
 
-/* Шапка */
-.navbar {
-    background-color: #c5e1b3; /* Светло-зелёный цвет для шапки */
-    border-bottom: 1px solid #a5d37e; /* Более тёмный оттенок зелёного для линии */
-}
 
-.navbar .nav-link {
-    color: #321608; /* Цвет текста ссылок */
-}
-
-.navbar .nav-link.active {
-    color: #321608; /* Цвет активной ссылки */
+/* Шапка: стили для логотипа и текста */
+.navbar-brand {
+    font-size: 1.2rem;
     font-weight: bold;
+    color: #321608; /* Цвет текста */
+}
+
+.navbar-brand span {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #321608;
 }
 
 .navbar-brand img {
-    max-height: 50px;
+    height: 40px;
+    margin: 0 5px; /* Отступы вокруг изображения */
+}
+
+.navbar-brand a:hover {
+    text-decoration: none;
+    color: #a5d37e; /* Цвет текста при наведении */
 }
 
 /* Кнопки */
@@ -57,50 +62,148 @@ main {
     border-color: #f5d3f5;
 }
 
-/* Подвал */
-footer {
-    background-color: #c5e1b3; /* Светло-зелёный фон для подвала */
-    color: #321608; /* Цвет текста подвала */
-    flex-shrink: 0; /* Закрепляем подвал внизу страницы */
-    text-align: center;
-    padding: 20px 0;
+
+
+/* Карточки товаров */
+.card {
+    border: 1px solid #a5d37e;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Высота карточек выравнивается по самой высокой */
+    background-color: #ffffff; /* Белый фон карточек */
 }
 
-footer a {
-    color: #321608; /* Цвет ссылок в подвале */
-    text-decoration: none;
+/* Изображения в карточках */
+.card-img-top {
+    width: 100%; /* Изображение заполняет всю ширину карточки */
+    height: auto; /* Высота изображения определяется пропорционально ширине */
+    border-bottom: 1px solid #a5d37e;
+    border-radius: 10px 10px 0 0; /* Закругление только верхних углов */
+    padding: 5px; /* Небольшой отступ внутри изображения */
 }
 
-footer a:hover {
-    text-decoration: underline;
+/* Контейнер внутри карточки */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Контент распределён равномерно */
+    flex-grow: 1; /* Расширение для равномерного выравнивания кнопки */
 }
 
-/* Стили заголовков */
-h1, h2, h3, h4, h5, h6 {
-    color: #321608; /* Цвет заголовков */
+/* Заголовки товаров */
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 10px 0;
+    text-align: left;
+    color: #321608; /* Цвет текста заголовков */
 }
 
-/* Таблицы */
-.table {
-    background-color: #ffffff; /* Белый фон для таблиц */
+/* Текст описания товара */
+.card-text {
+    font-size: 1rem;
+    text-align: left;
+    margin-bottom: 15px;
+    color: #555; /* Цвет текста описания */
+}
+
+/* Кнопки */
+.card .btn {
+    margin-top: auto;
+    align-self: center;
+    background-color: #c5e1b3; /* Светло-зеленая кнопка */
     color: #321608;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    transition: background-color 0.3s ease;
 }
 
-.table th, .table td {
-    border-color: #a5d37e; /* Лёгкий оттенок зелёного для границ */
-}
-
-/* Корзина (иконка внизу) */
-.btn-cart {
-    background-color: #fbdef4; /* Цвет кнопки корзины соответствует цвету фона */
-    border-color: #fbdef4;
-    color: #321608;
-}
-
-.btn-cart:hover {
-    background-color: #f5d3f5; /* Более насыщенный розовый при наведении */
+.card .btn:hover {
+    background-color: #a5d37e; /* Более насыщенный зеленый при наведении */
     color: #ffffff;
 }
 
+/* Глобальное выравнивание карточек */
+.row .col-md-4 {
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 20px; /* Расстояние между строками */
+}
 
-/*#336118 темно зеленый*/
+/* Слайдеры */
+.carousel-inner {
+    background-color: #ffffff; /* Белый фон для слайдеров */
+    border: 1px solid #a5d37e; /* Обводка для слайдеров */
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.carousel-item img {
+    width: 100%; /* Изображение заполняет всю ширину */
+    height: auto; /* Пропорциональное уменьшение */
+    object-fit: contain; /* Полностью вписывается в блок */
+    border-radius: 10px; /* Закругление углов */
+}
+
+.slider-description-container {
+    margin: 20px auto;
+    max-width: 800px; /* Ширина карточки */
+}
+
+.slider-description-container .card {
+    background-color: #ffffff; /* Белый фон */
+    border: 1px solid #a5d37e; /* Обводка в цвете темы */
+    border-radius: 10px; /* Закругленные углы */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Мягкая тень */
+    text-align: center; /* Центрирование текста */
+}
+
+
+/* Подвал */
+footer {
+    background-color: #c5e1b3; /* Светло-зелёный фон */
+    color: #321608; /* Цвет текста */
+    text-align: center;
+    padding: 20px 0; /* Отступы сверху и снизу */
+    flex-shrink: 0;
+}
+
+footer h6 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 10px; /* Отступ между заголовком и текстом */
+}
+
+footer p {
+    margin: 0; /* Убираем лишние отступы */
+    line-height: 1.5;
+    font-size: 0.9rem; /* Универсальный размер шрифта */
+    text-align: center; /* Центровка текста */
+}
+
+footer a {
+    color: #321608; /* Цвет ссылок */
+    text-decoration: none;
+    margin: 0 5px; /* Отступы между ссылками */
+}
+
+footer a:hover {
+    text-decoration: underline; /* Подчеркивание при наведении */
+}
+
+/* Контейнеры внутри подвала */
+.footer-container {
+    display: flex;
+    justify-content: space-between; /* Разделяем блоки */
+    flex-wrap: wrap; /* Чтобы блоки не выходили за рамки */
+    gap: 20px; /* Пространство между колонками */
+}
+
+.footer-column {
+    flex: 1; /* Равномерное распределение колонок */
+    min-width: 200px; /* Минимальная ширина для колонок */
+}

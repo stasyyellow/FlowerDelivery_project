@@ -13,3 +13,11 @@ class Review(models.Model):
     def __str__(self):
         return f"Отзыв от {self.user.username}"
 
+class Slide(models.Model):
+    title = models.CharField(max_length=255, verbose_name="Название слайда")
+    description = models.TextField(blank=True, verbose_name="Описание")
+    image = models.ImageField(upload_to='slides/', verbose_name="Изображение")
+    is_trend = models.BooleanField(default=False, verbose_name="Тренд сезона")
+
+    def __str__(self):
+        return self.title

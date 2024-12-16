@@ -3,14 +3,74 @@
 {% block title %}Главная{% endblock %}
 
 {% block content %}
-<h1>Добро пожаловать в Flower Delivery!</h1>
-<p>Популярные товары:</p>
-<ul>
+<h1 class="text-center">Добро пожаловать в Flower Delivery!</h1>
+
+<!-- Слайдер сезонных букетов -->
+<div id="seasonalSlider" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        {% for slide in seasonal_slides %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <img src="{{ slide.image.url }}" class="d-block w-100" alt="{{ slide.title }}">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>{{ slide.title }}</h5>
+                <p>{{ slide.description }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#seasonalSlider" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#seasonalSlider" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<!-- Популярные товары -->
+<h2 class="text-center mt-4">Популярные товары</h2>
+<div class="row">
     {% for product in products %}
-        <li>
-            <strong>{{ product.name }}</strong>: {{ product.price }} руб.
-        </li>
+    <div class="col-md-4 d-flex align-items-stretch">
+        <div class="card">
+            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text">{{ product.price }} руб.</p>
+                <a href="{% url 'cart:add_to_cart' product.id %}" class="btn btn-primary">Добавить в корзину</a>
+            </div>
+        </div>
+    </div>
     {% endfor %}
-</ul>
-<p><a href="{% url 'product_list' %}">Перейти в каталог</a></p>
+</div>
+
+
+<!-- Слайдер трендов -->
+<h2 class="text-center mt-4">Тренды сезона</h2>
+<div id="trendSlider" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        {% for slide in trend_slides %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            <!-- Картинка слайда -->
+            <img src="{{ slide.image.url }}" class="d-block w-100" alt="{{ slide.title }}">
+            <!-- Описание слайда -->
+            <div class="carousel-caption d-block text-dark rounded p-3" style="background-color: rgba(255, 255, 255, 0.5);">
+                <h4>{{ slide.title }}</h4>
+                <h5>{{ slide.description }}</h5>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- Кнопки управления слайдером -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#trendSlider" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#trendSlider" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
 {% endblock %}

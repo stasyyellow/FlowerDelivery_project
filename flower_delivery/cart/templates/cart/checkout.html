@@ -3,45 +3,46 @@
 {% block title %}Оформление заказа{% endblock %}
 
 {% block content %}
-<h1>Оформление заказа</h1>
-<form method="post">
+<h1 class="text-center">Оформление заказа</h1>
+<form method="post" class="p-3 bg-light rounded">
     {% csrf_token %}
-    <table class="table">
-        <thead>
+    <table class="table table-striped">
+        <thead class="table-light">
             <tr>
                 <th>Товар</th>
-                <th>Количество</th>
-                <th>Цена за единицу</th>
-                <th>Общая цена</th>
+                <th class="text-center">Количество</th>
+                <th class="text-end">Цена за единицу</th>
+                <th class="text-end">Общая цена</th>
             </tr>
         </thead>
         <tbody>
             {% for item in items %}
             <tr>
                 <td>{{ item.product.name }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.product.price }} руб.</td>
-                <td>{{ item.get_total_price }} руб.</td>
+                <td class="text-center">{{ item.quantity }}</td>
+                <td class="text-end">{{ item.product.price }} руб.</td>
+                <td class="text-end">{{ item.get_total_price }} руб.</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 
-    <!-- Адрес -->
     <div class="mb-3">
         <label for="delivery_address" class="form-label">Адрес доставки</label>
         <input type="text" id="delivery_address" name="delivery_address" class="form-control" required>
     </div>
 
-    <!-- Открытка -->
     <div class="mb-3 form-check">
         <input type="checkbox" class="form-check-input" id="add_card" name="add_card">
         <label for="add_card" class="form-check-label">Добавить открытку</label>
         <textarea id="card_message" name="card_message" class="form-control mt-2" placeholder="Текст открытки"></textarea>
     </div>
 
-    <button type="submit" name="confirm_order" class="btn btn-success">Подтвердить заказ</button>
+    <div class="text-center">
+        <button type="submit" name="confirm_order" class="btn btn-success">Подтвердить заказ</button>
+    </div>
 </form>
 {% endblock %}
+
 
 
