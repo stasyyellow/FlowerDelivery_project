@@ -2,27 +2,27 @@ from django.shortcuts import render, redirect
 from catalog.models import Product
 from .models import Review, Slide
 
+from .models import Slide
+
 def home(request):
     """
     Главная страница.
-    Вывод случайных товаров, сезонных и трендовых слайдов.
+    Вывод случайных товаров и слайдов.
     """
     # Случайные товары
     products = Product.objects.order_by('?')[:3]
 
-    # Сезонные и трендовые слайды
-    seasonal_slides = Slide.objects.filter(is_trend=False).order_by('id')[:5]
-    trend_slides = Slide.objects.filter(is_trend=True).order_by('id')[:5]
+    # Все слайды (без фильтра по is_trend)
+    trend_slides = Slide.objects.all().order_by('id')[:5]
 
-    # Контекст для передачи данных
     context = {
         'products': products,
-        'seasonal_slides': seasonal_slides,
         'trend_slides': trend_slides,
     }
 
     # Рендеринг шаблона с передачей контекста
-    return render(request, 'flower_delivery/home.html', context) #context
+    return render(request, 'flower_delivery/home.html', context)
+
 
 def reviews(request):
     if request.method == 'POST' and request.user.is_authenticated:

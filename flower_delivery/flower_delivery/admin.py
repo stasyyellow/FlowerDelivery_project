@@ -9,6 +9,5 @@ class ReviewAdmin(admin.ModelAdmin):
 
 @admin.register(Slide)
 class SlideAdmin(admin.ModelAdmin):
-    list_display = ('title', 'is_trend')
-    list_filter = ('is_trend',)
-    search_fields = ('title', 'description')
+    list_display = ('title',)  # Отображаем только название слайда
+    search_fields = ('title', 'description')  # Поиск по названию и описанию

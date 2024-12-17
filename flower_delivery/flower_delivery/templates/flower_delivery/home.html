@@ -5,28 +5,6 @@
 {% block content %}
 <h1 class="text-center">Добро пожаловать в Flower Delivery!</h1>
 
-<!-- Слайдер сезонных букетов -->
-<div id="seasonalSlider" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        {% for slide in seasonal_slides %}
-        <div class="carousel-item {% if forloop.first %}active{% endif %}">
-            <img src="{{ slide.image.url }}" class="d-block w-100" alt="{{ slide.title }}">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>{{ slide.title }}</h5>
-                <p>{{ slide.description }}</p>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#seasonalSlider" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#seasonalSlider" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
 
 <!-- Популярные товары -->
 <h2 class="text-center mt-4">Популярные товары</h2>

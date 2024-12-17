@@ -23,7 +23,10 @@ def add_to_cart(request, product_id):
     cart, created = Cart.objects.get_or_create(user=request.user)
 
     cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
-    cart_item.quantity += 1
+    if created:  # Если товар только что добавлен, устанавливаем количество = 1
+        cart_item.quantity = 1
+    else:  # Если товар уже был в корзине, увеличиваем количество
+        cart_item.quantity += 1
     cart_item.save()
 
     messages.success(request, f"Товар '{product.name}' был добавлен в корзину.")
