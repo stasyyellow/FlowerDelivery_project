@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'cart', #корзина
+    'cart',  #корзина
     'catalog',
     'flower_delivery', #?
     'orders',

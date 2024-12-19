@@ -2,7 +2,6 @@ from django.conf import settings
 from django.db import models
 from catalog.models import Product
 
-
 class Order(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -13,10 +12,14 @@ class Order(models.Model):
         max_length=255,
         verbose_name="Адрес доставки"
     )
-    comment = models.TextField(
+    add_card = models.BooleanField(
+        default=False,
+        verbose_name="Добавить открытку?"
+    )
+    card_text = models.TextField(
         blank=True,
         null=True,
-        verbose_name="Комментарий"
+        verbose_name="Текст открытки"
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
@@ -32,10 +35,15 @@ class Order(models.Model):
         default='pending',
         verbose_name="Статус"
     )
+    source = models.CharField(
+        max_length=10,
+        choices=[('web', 'Сайт'), ('telegram', 'Телеграм')],
+        default='web',
+        verbose_name="Источник заказа"
+    )
 
     def __str__(self):
         return f"Заказ {self.id} от {self.user.username}"
-
 
 class OrderItem(models.Model):
     order = models.ForeignKey(
@@ -64,8 +72,3 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.product.name} x {self.quantity}"
-
-    class Meta:
-        verbose_name = "Элемент заказа"
-        verbose_name_plural = "Элементы заказа"
-

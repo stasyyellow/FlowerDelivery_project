@@ -3,6 +3,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from catalog.models import Product
 from .models import Cart, CartItem
 from django.contrib import messages
+from orders.forms import OrderForm
+from orders.models import Order, OrderItem
 
 @login_required
 def cart_view(request):
@@ -23,21 +25,17 @@ def add_to_cart(request, product_id):
     cart, created = Cart.objects.get_or_create(user=request.user)
 
     cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
-    if created:  # Если товар только что добавлен, устанавливаем количество = 1
+    if created:
         cart_item.quantity = 1
-    else:  # Если товар уже был в корзине, увеличиваем количество
+    else:
         cart_item.quantity += 1
     cart_item.save()
 
     messages.success(request, f"Товар '{product.name}' был добавлен в корзину.")
-
-    # Проверка: если запрос пришел со страницы корзины, оставляем пользователя на корзине
     referer = request.META.get('HTTP_REFERER', '')
     if 'cart' in referer:
-        return redirect('cart:cart_view')  # Возврат в корзину
-
-    # Если запрос из каталога или другой страницы
-    return redirect('catalog:product_list')  # Указываем пространство имён
+        return redirect('cart:cart_view')
+    return redirect('catalog:product_list')
 
 @login_required
 def decrease_quantity(request, item_id):
@@ -62,15 +60,37 @@ def remove_from_cart(request, item_id):
 
 @login_required
 def checkout(request):
-    """Оформление заказа."""
+    """Оформление заказа (с сайта)."""
     cart, created = Cart.objects.get_or_create(user=request.user)
     items = cart.items.all()
 
     if request.method == 'POST':
-        # Здесь должна быть логика создания заказа (заполнить позже)
-        cart.items.all().delete()
-        messages.success(request, "Ваш заказ успешно оформлен!")
-        return redirect('catalog:product_list')  # Указываем пространство имён
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.user = request.user
+            order.source = 'web'  # Указываем источник заказа "сайт"
+            order.save()
 
-    return render(request, 'cart/checkout.html', {'items': items})
+            for cart_item in items:
+                OrderItem.objects.create(
+                    order=order,
+                    product=cart_item.product,
+                    quantity=cart_item.quantity,
+                    price=cart_item.product.price
+                )
+
+            cart.items.all().delete()
+
+            messages.success(request, "Ваш заказ успешно оформлен!")
+            return redirect('catalog:product_list')
+        else:
+            messages.error(request, "Пожалуйста, исправьте ошибки в форме.")
+    else:
+        form = OrderForm()
+
+    return render(request, 'cart/checkout.html', {
+        'items': items,
+        'form': form
+    })
 

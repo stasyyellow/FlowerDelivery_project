@@ -6,7 +6,33 @@
 <h1>Создание заказа</h1>
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Ошибка!</strong>
+            <ul>
+            {% for field, errors in form.errors.items %}
+                <li>{{ field }}: {{ errors }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <div class="mb-3">
+        <label for="id_delivery_address" class="form-label">Адрес доставки (обязательно)</label>
+        {{ form.delivery_address }}
+    </div>
+
+    <div class="form-check mb-3">
+        {{ form.add_card }}
+        <label for="id_add_card" class="form-check-label">Добавить открытку</label>
+    </div>
+
+    <div class="mb-3">
+        <label for="id_card_text" class="form-label">Текст открытки</label>
+        {{ form.card_text }}
+    </div>
+
     <button type="submit" class="btn btn-primary">Оформить заказ</button>
 </form>
 {% endblock %}

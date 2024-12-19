@@ -1,16 +1,10 @@
 from django import forms
 from .models import Order
-from catalog.models import Product
 
 class OrderForm(forms.ModelForm):
     delivery_address = forms.CharField(
         widget=forms.Textarea(attrs={'rows': 3, 'placeholder': 'Введите адрес доставки'}),
         label="Адрес доставки"
-    )
-    comment = forms.CharField(
-        required=False,
-        widget=forms.Textarea(attrs={'rows': 2, 'placeholder': 'Дополнительные комментарии'}),
-        label="Комментарий",
     )
     add_card = forms.BooleanField(
         required=False,
@@ -25,5 +19,16 @@ class OrderForm(forms.ModelForm):
 
     class Meta:
         model = Order
-        fields = ['delivery_address', 'comment', 'add_card', 'card_text']
+        fields = ['delivery_address', 'add_card', 'card_text']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        add_card = cleaned_data.get('add_card')
+        card_text = cleaned_data.get('card_text', '')
+
+        if not add_card:
+            cleaned_data['card_text'] = ''
+        return cleaned_data
+
+
 

@@ -4,8 +4,21 @@
 
 {% block content %}
 <h1 class="text-center">Оформление заказа</h1>
+
 <form method="post" class="p-3 bg-light rounded">
     {% csrf_token %}
+
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Ошибка!</strong>
+            <ul>
+            {% for field, errors in form.errors.items %}
+                <li>{{ field }}: {{ errors }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
     <table class="table table-striped">
         <thead class="table-light">
             <tr>
@@ -29,13 +42,13 @@
 
     <div class="mb-3">
         <label for="delivery_address" class="form-label">Адрес доставки</label>
-        <input type="text" id="delivery_address" name="delivery_address" class="form-control" required>
+        <textarea id="delivery_address" name="delivery_address" class="form-control" rows="3" placeholder="Введите адрес доставки" required></textarea>
     </div>
 
     <div class="mb-3 form-check">
         <input type="checkbox" class="form-check-input" id="add_card" name="add_card">
         <label for="add_card" class="form-check-label">Добавить открытку</label>
-        <textarea id="card_message" name="card_message" class="form-control mt-2" placeholder="Текст открытки"></textarea>
+        <textarea id="card_text" name="card_text" class="form-control mt-2" rows="3" placeholder="Введите текст открытки..."></textarea>
     </div>
 
     <div class="text-center">
@@ -43,6 +56,3 @@
     </div>
 </form>
 {% endblock %}
-
-
-
